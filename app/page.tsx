@@ -1,11 +1,21 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Something good is taking shape",
+  title: "DesiBees is taking shape",
   description: siteConfig.description,
   alternates: {
-    canonical: "/",
+    canonical: siteConfig.url,
+  },
+  openGraph: {
+    url: siteConfig.url,
+    title: "DesiBees is taking shape",
+    description: siteConfig.description,
+  },
+  twitter: {
+    title: "DesiBees is taking shape",
+    description: siteConfig.description,
   },
 };
 
@@ -16,6 +26,10 @@ const HiveMark = () => (
 );
 
 export default function Home() {
+  const shareUrl = encodeURIComponent(siteConfig.url);
+  const shareText = encodeURIComponent(
+    "DesiBees is taking shape — follow along for the launch.",
+  );
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -40,22 +54,43 @@ export default function Home() {
       <div className="noise" />
 
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="DesiBees home">
+        <Link className="brand" href="/" aria-label="DesiBees home">
           <span className="brand-mark"><HiveMark /></span>
           <span>DesiBees</span>
-        </a>
+        </Link>
+        <nav className="site-nav" aria-label="Page navigation">
+          <a href="#about">About</a>
+          <a href="#launch">Launch</a>
+          <a href="#share">Share</a>
+        </nav>
       </header>
 
-      <section className="message" id="top">
+      <section className="message" id="about">
         <p className="kicker"><i /> Coming soon</p>
         <h1>
-          Something good<br />
-          <span>is taking shape.</span>
+          DesiBees is<br />
+          <span>taking shape.</span>
         </h1>
         <p className="copy">
-          DesiBees is a new independent digital project in development.
-          Stay curious—we&apos;ll be ready to share more soon.
+          DesiBees is a new independent digital project taking shape with care,
+          curiosity, and a distinctly original point of view.
         </p>
+        <p className="copy copy-secondary" id="launch">
+          We are thoughtfully building the first version now, refining the
+          details before opening the doors to everyone. This page will become
+          the home of DesiBees when the project is ready to launch.
+        </p>
+        <p className="copy copy-secondary">
+          Stay curious and visit again soon; something good is in progress, and
+          we look forward to sharing the full story with you.
+        </p>
+
+        <div className="share" id="share" aria-label="Share DesiBees">
+          <span>Share the buzz</span>
+          <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href={`https://x.com/intent/post?url=${shareUrl}&text=${shareText}`} target="_blank" rel="noopener noreferrer">X</a>
+          <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`} target="_blank" rel="noopener noreferrer">Facebook</a>
+        </div>
       </section>
 
       <footer className="site-footer">
